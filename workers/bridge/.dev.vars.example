@@ -1,5 +1,35 @@
-# Copy to .dev.vars for local development, and set the same values as Worker
-# secrets in production with `wrangler secret put <NAME>`.
+# Local development values for `wrangler dev`. Copy this file to `.dev.vars`.
+#
+# Bindings are declared in wrangler.jsonc and are NOT set here:
+#   env.EMAILS      - R2 bucket (r2_buckets[].binding)
+#   env.EMAIL_QUEUE - Queue producer/consumer (queues.*)
+#
+# The values below are either secrets or account-specific, so they are not
+# committed. For production, set the ones marked "secret" with:
+#   npx wrangler secret put <NAME>
+# and add the rest under the `vars` key in wrangler.jsonc.
+
+# Required, secret. Shared with the Lambda's BRIDGE_HMAC_SECRET. Generate with:
+#   openssl rand -hex 32
 BRIDGE_HMAC_SECRET=replace-with-a-long-random-value
+
+# Required, secret. R2 S3 API token scoped to Object Read & Write on R2_BUCKET.
 R2_ACCESS_KEY_ID=replace-me
 R2_SECRET_ACCESS_KEY=replace-me
+
+# Required, account-specific. Cloudflare account id that owns the R2 bucket.
+# Left empty in wrangler.jsonc because it differs per deployment; presigning
+# needs it even for local dev.
+R2_ACCOUNT_ID=replace-me
+
+# Optional, non-secret. Defaults come from wrangler.jsonc and are shown here for
+# reference; uncomment an entry to override it locally.
+# R2_BUCKET=ses-inbound
+# R2_KEY_PREFIX=inbound
+# ALLOWED_SKEW_SECONDS=300
+# PRESIGN_TTL_SECONDS=3600
+#
+# Note: presigned URLs always point at the real R2 S3 endpoint
+# (https://<account>.r2.cloudflarestorage.com), so end-to-end local testing
+# needs real R2 credentials. Use `wrangler dev --remote` if you want the queue
+# consumer to read from the deployed bucket rather than local Miniflare storage.
