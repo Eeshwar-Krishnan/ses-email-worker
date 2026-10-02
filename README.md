@@ -24,10 +24,10 @@ sender ──MX──▶ SES inbound ──receipt rule──▶ S3 object
                                      S3 notification (ObjectCreated)
                                                 ▼
                                     Rust Lambda (IAM: Get+Delete)
-                                      │                    │
-                        1. HMAC POST /presign             │
-                                      ▼                    │
-                        Cloudflare Worker ── presigned PUT │
+                                      │                     │
+                        1. HMAC POST /presign               │
+                                      ▼                     │
+                        Cloudflare Worker ── presigned PUT  │
                                       │                     │
                         2. PUT raw message to R2 ◀──────────┘
                         3. Delete S3 object
