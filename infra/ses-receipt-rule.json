@@ -1,0 +1,22 @@
+{
+  "RuleSetName": "default-rule-set",
+  "Rule": {
+    "Name": "inbound-catch-all-to-s3",
+    "Enabled": true,
+    "TlsPolicy": "Optional",
+    "ScanEnabled": true,
+    "Recipients": [
+      "example.com",
+      ".example.com"
+    ],
+    "Actions": [
+      {
+        "S3Action": {
+          "BucketName": "REPLACE_INBOUND_BUCKET",
+          "ObjectKeyPrefix": "",
+          "IamRoleArn": "arn:aws:iam::REPLACE_ACCOUNT_ID:role/ses-s3-write"
+        }
+      }
+    ]
+  }
+}

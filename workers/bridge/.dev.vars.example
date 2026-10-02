@@ -1,0 +1,5 @@
+# Copy to .dev.vars for local development, and set the same values as Worker
+# secrets in production with `wrangler secret put <NAME>`.
+BRIDGE_HMAC_SECRET=replace-with-a-long-random-value
+R2_ACCESS_KEY_ID=replace-me
+R2_SECRET_ACCESS_KEY=replace-me

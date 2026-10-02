@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = ["crates/ses-bridge"]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+incremental = false

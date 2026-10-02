@@ -1,0 +1,9 @@
+{
+  "LambdaFunctionConfigurations": [
+    {
+      "Id": "ses-inbound-to-bridge",
+      "LambdaFunctionArn": "arn:aws:lambda:REPLACE_REGION:REPLACE_ACCOUNT_ID:function:ses-bridge",
+      "Events": ["s3:ObjectCreated:*"]
+    }
+  ]
+}

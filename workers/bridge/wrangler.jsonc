@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ses-email-bridge",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "r2_buckets": [
+    {
+      "binding": "EMAILS",
+      "bucket_name": "ses-inbound"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "EMAIL_QUEUE",
+        "queue": "ses-inbound"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "ses-inbound",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5,
+        "max_retries": 3
+      }
+    ]
+  },
+  "vars": {
+    "R2_ACCOUNT_ID": "",
+    "R2_BUCKET": "ses-inbound",
+    "R2_KEY_PREFIX": "inbound",
+    "ALLOWED_SKEW_SECONDS": "300",
+    "PRESIGN_TTL_SECONDS": "3600"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
